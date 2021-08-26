@@ -1,0 +1,15 @@
+1. create next folders:
+	data
+	   alice
+	   api
+	   bob
+	   eth
+	   EthEpoch
+	   jim
+2. generate Jim's wallet.db to data/api (wallet api)
+3. move ethash_service cache files to data/EthEpoch
+4. generate geth data to data/eth
+5. fill in .env file
+6. build project: docker-compose build
+7. run: docker-compose up -d
+
