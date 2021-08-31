@@ -56,7 +56,7 @@ services:
     volumes:
       - ./data/eth/:/home/geth/data/
     stop_signal: SIGINT
-    stop_grace_period: 2m
+    stop_grace_period: 30s
     ports:
       - "4321:4321"
       - "8543:8543"
