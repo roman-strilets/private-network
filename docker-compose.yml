@@ -4,7 +4,7 @@ services:
     build:
       context: ./node/
     volumes:
-      - ./data/alice/:/home/beam/data/
+      - ${DATA_PATH}/alice/:/home/beam/data/
     ports:
       - "11001:11001"
     environment:
@@ -16,7 +16,7 @@ services:
     build:
       context: ./node/
     volumes:
-      - ./data/bob/:/home/beam/data/
+      - ${DATA_PATH}/bob/:/home/beam/data/
     ports:
       - "11002:11002"
     depends_on:
@@ -30,7 +30,7 @@ services:
     build:
       context: ./node/
     volumes:
-      - ./data/jim/:/home/beam/data/
+      - ${DATA_PATH}/jim/:/home/beam/data/
     ports:
       - "11003:11003"
     depends_on:
@@ -44,7 +44,7 @@ services:
     build:
       context: ./wallet-api/
     volumes:
-      - ./data/api/:/home/beam/data/
+      - ${DATA_PATH}/api/:/home/beam/data/
     ports:
       - "11011:11011"
     environment:
@@ -54,9 +54,9 @@ services:
   geth:
     build: ./eth/
     volumes:
-      - ./data/eth/:/home/geth/data/
+      - ${DATA_PATH}/eth/:/home/geth/data/
     stop_signal: SIGINT
-    stop_grace_period: 2m
+    stop_grace_period: 20s
     ports:
       - "4321:4321"
       - "8543:8543"
@@ -64,6 +64,33 @@ services:
   ethash:
     build: ./ethash/
     volumes:
-      - ./data/EthEpoch/:/home/ethash/EthEpoch/
+      - ${DATA_PATH}/EthEpoch/:/home/ethash/EthEpoch/
     ports:
       - "30000:30000"
+
+  beam2eth_relay:
+    build:
+      context: ./../beam-bridge-ethrelay/
+    volumes:
+      - ${DATA_PATH}/ethrelay/:/home/ethrelay/data/
+    environment:
+      - RELAYER_SCRIPT=beam2eth_relay.js
+      - BEAM_HOST=api
+      - ETH_HTTP_PROVIDER=http://geth:8543
+    depends_on:
+      - api
+      - geth
+
+  eth2beam_relay:
+    build:
+      context: ./../beam-bridge-ethrelay/
+    volumes:
+      - ${DATA_PATH}/ethrelay/:/home/ethrelay/data/
+    environment:
+      - RELAYER_SCRIPT=eth2beam_relay.js
+      - BEAM_HOST=api
+      - ETH_HTTP_PROVIDER=http://geth:8543
+      - ETH_WEBSOCKET_PROVIDER=ws://geth:8546
+    depends_on:
+      - api
+      - geth

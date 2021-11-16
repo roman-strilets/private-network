@@ -1,0 +1,44 @@
+[Eth]
+NetworkId = 1234
+SyncMode = "snap"
+EthDiscoveryURLs = []
+SnapDiscoveryURLs = []
+NoPruning = false
+NoPrefetch = false
+TxLookupLimit = 2350000
+LightPeers = 100
+UltraLightFraction = 75
+DatabaseCache = 512
+DatabaseFreezer = ""
+TrieCleanCache = 154
+TrieCleanCacheJournal = "triecache"
+TrieCleanCacheRejournal = 3600000000000
+TrieDirtyCache = 256
+TrieTimeout = 3600000000000
+SnapshotCache = 102
+Preimages = false
+EnablePreimageRecording = false
+RPCGasCap = 50000000
+RPCTxFeeCap = 1e+00
+
+[Eth.Miner]
+Etherbase = "0xD5d8414d6Ac23B33225D8B8eED5D73B4dc29d651"
+GasFloor = 8000000
+GasCeil = 8000000
+GasPrice = 1000000000
+Recommit = 3000000000
+Noverify = false
+
+[Node]
+DataDir = "data"
+HTTPHost = "0.0.0.0"
+HTTPPort = 8543
+HTTPVirtualHosts = ["*"]
+HTTPModules = ["eth", "net", "web3", "personal", "miner", "debug"]
+WSHost = "0.0.0.0"
+WSPort = 8546
+WSModules = ["eth", "net", "web3"]
+GraphQLVirtualHosts = ["localhost"]
+
+[Node.P2P]
+ListenAddr = ":4321"
