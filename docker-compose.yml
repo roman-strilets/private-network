@@ -71,29 +71,109 @@ services:
     ports:
       - "30000:30000"
 
-  beam2eth_relay:
+  # beam2eth_relay:
+  #   build:
+  #     context: ./../beam-bridge-ethrelay/
+  #   volumes:
+  #     - ${DATA_PATH}/ethrelay/:/home/ethrelay/data/
+  #   environment:
+  #     - RELAYER_SCRIPT=beam2eth_relay.js
+  #     - BEAM_HOST=api
+  #     - ETH_HTTP_PROVIDER=http://geth:8543
+  #     - BEAM_BRIDGE_CID=40306461ecccb777b308643bd6499f9e22c7c6373edb11aae1d32f112c4a79ac
+
+  #   depends_on:
+  #     - api
+  #     - geth
+
+  # eth2beam_relay:
+  #   build:
+  #     context: ./../beam-bridge-ethrelay/
+  #   volumes:
+  #     - ${DATA_PATH}/ethrelay/:/home/ethrelay/data/
+  #   environment:
+  #     - RELAYER_SCRIPT=eth2beam_relay.js
+  #     - BEAM_HOST=api
+  #     - ETH_HTTP_PROVIDER=http://geth:8543
+  #     - ETH_WEBSOCKET_PROVIDER=ws://geth:8546
+  #   depends_on:
+  #     - api
+  #     - geth
+
+  beam2usdt_relay:
     build:
       context: ./../beam-bridge-ethrelay/
     volumes:
-      - ${DATA_PATH}/ethrelay/:/home/ethrelay/data/
+      - ${DATA_PATH}/ethrelay/USDT/:/home/ethrelay/data/
     environment:
       - RELAYER_SCRIPT=beam2eth_relay.js
       - BEAM_HOST=api
       - ETH_HTTP_PROVIDER=http://geth:8543
+      - BEAM_BRIDGE_CID=2acc70ebd1bdda9d58c543e83560a35f5f9b06a1861ebde83500790c790d92fe
+      - ETH_PIPE_CONTRACT_ADDRESS=0x950eedbEa0A4267028EAceAAb229633E5A9cC226
+      - ETH_SENDER=0xFC63595A89699A742502e03d4021Be5dBfc2dD38
+      - ETH_TOKEN_CONTRACT=0xC9A07C43f05eA5ad147d5cC4176DF6481287e3AD
+      - ETH_SENDER_PRIVATE_KEY=0x..
+      - ETH_SIDE_DECIMALS=6
     depends_on:
       - api
       - geth
 
-  eth2beam_relay:
+  usdt2beam_relay:
     build:
       context: ./../beam-bridge-ethrelay/
     volumes:
-      - ${DATA_PATH}/ethrelay/:/home/ethrelay/data/
+      - ${DATA_PATH}/ethrelay/USDT/:/home/ethrelay/data/
     environment:
       - RELAYER_SCRIPT=eth2beam_relay.js
       - BEAM_HOST=api
       - ETH_HTTP_PROVIDER=http://geth:8543
       - ETH_WEBSOCKET_PROVIDER=ws://geth:8546
+      - BEAM_BRIDGE_CID=2acc70ebd1bdda9d58c543e83560a35f5f9b06a1861ebde83500790c790d92fe
+      - ETH_PIPE_CONTRACT_ADDRESS=0x950eedbEa0A4267028EAceAAb229633E5A9cC226
+      - ETH_SENDER=0xFC63595A89699A742502e03d4021Be5dBfc2dD38
+      - ETH_TOKEN_CONTRACT=0xC9A07C43f05eA5ad147d5cC4176DF6481287e3AD
+      - ETH_SENDER_PRIVATE_KEY=0x..
+      - ETH_SIDE_DECIMALS=6
+    depends_on:
+      - api
+      - geth
+
+  beam2dai_relay:
+    build:
+      context: ./../beam-bridge-ethrelay/
+    volumes:
+      - ${DATA_PATH}/ethrelay/DAI/:/home/ethrelay/data/
+    environment:
+      - RELAYER_SCRIPT=beam2eth_relay.js
+      - BEAM_HOST=api
+      - ETH_HTTP_PROVIDER=http://geth:8543
+      - BEAM_BRIDGE_CID=8d16dab3c94df2edc7e946daadb7df406f920ee0447bedc8744c57a89c1f1fbd
+      - ETH_PIPE_CONTRACT_ADDRESS=0xFF8713638b73b371D6a28C7C7852Aa57a0C9A3D2
+      - ETH_SENDER=0x321a9Ce506fAA594a6A59d49eb0b344CA9802577
+      - ETH_TOKEN_CONTRACT=0x373e337F18977237fB2e33E028F51dfDfA576B20
+      - ETH_SENDER_PRIVATE_KEY=0x..
+      - ETH_SIDE_DECIMALS=18
+    depends_on:
+      - api
+      - geth
+
+  dai2beam_relay:
+    build:
+      context: ./../beam-bridge-ethrelay/
+    volumes:
+      - ${DATA_PATH}/ethrelay/DAI/:/home/ethrelay/data/
+    environment:
+      - RELAYER_SCRIPT=eth2beam_relay.js
+      - BEAM_HOST=api
+      - ETH_HTTP_PROVIDER=http://geth:8543
+      - ETH_WEBSOCKET_PROVIDER=ws://geth:8546
+      - BEAM_BRIDGE_CID=8d16dab3c94df2edc7e946daadb7df406f920ee0447bedc8744c57a89c1f1fbd
+      - ETH_PIPE_CONTRACT_ADDRESS=0xFF8713638b73b371D6a28C7C7852Aa57a0C9A3D2
+      - ETH_SENDER=0x321a9Ce506fAA594a6A59d49eb0b344CA9802577
+      - ETH_TOKEN_CONTRACT=0x373e337F18977237fB2e33E028F51dfDfA576B20
+      - ETH_SENDER_PRIVATE_KEY=0x..
+      - ETH_SIDE_DECIMALS=18
     depends_on:
       - api
       - geth
