@@ -8,6 +8,7 @@ COPY wallet-api-masternet /home/beam/wallet/wallet-api-masternet
 COPY beam-wallet-masternet /home/beam/wallet/beam-wallet-masternet
 COPY init.sh /home/beam/wallet/init.sh
 COPY pipe_app.wasm /home/beam/wallet/pipe_app.wasm
+COPY token_app.wasm /home/beam/wallet/token_app.wasm
 
 EXPOSE 11011
 
