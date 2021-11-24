@@ -64,12 +64,6 @@ services:
       - "4321:4321"
       - "8543:8543"
       - "8546:8546"
-  ethash:
-    build: ./ethash/
-    volumes:
-      - ${DATA_PATH}/EthEpoch/:/home/ethash/EthEpoch/
-    ports:
-      - "30000:30000"
 
   # beam2eth_relay:
   #   build:
